@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Container, Nav, Form, Dropdown, Badge } from "react-bootstrap";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import "./style.css";
 
 function Header() {
   return (
