@@ -1,13 +1,14 @@
 import React from "react";
 import { Navbar, Container, Nav, Form, Dropdown, Badge } from "react-bootstrap";
 import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <Navbar bg="dark" variant="dark" style={{ height: 80 }}>
       <Container className="d-flex ">
         <Navbar.Brand>
-          <Nav.Link href="#features">Shopping card</Nav.Link>
+          <Link to="/">Shopping card</Link>
         </Navbar.Brand>
 
         <Navbar.Text className="search flex-fill" style={{ maxWidth: 700 }}>
@@ -19,7 +20,7 @@ function Header() {
         </Navbar.Text>
 
         <Nav>
-          <Dropdown alignLeft className="m-3 " align= "end" >
+          <Dropdown className="m-3 " align="end">
             <Dropdown.Toggle variant="success">
               <FaShoppingCart color="white" fontSize="25px" />
               <Badge className="bg-transparent">13</Badge>
