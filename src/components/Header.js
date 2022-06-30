@@ -20,7 +20,7 @@ function Header() {
     dispatch,
   } = CartState();
 
-  console.log(cart);
+
 
   return (
     <Navbar bg="dark" variant="dark" style={{ height: 80 }}>

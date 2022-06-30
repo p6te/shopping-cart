@@ -23,13 +23,13 @@ export const productReducer = (state, action) => {
   switch (action.type) {
     case "SORT_BY_PRICE":
       return { ...state, sort: action.payload };
-    case "SORT_BY_STOCK":
+    case "FILTER_BY_STOCK":
       return { ...state, byStock: !state.byStock };
-    case "SORT_BY_DELIVERY":
+    case "FILTER_BY_DELIVERY":
       return { ...state, byFastDelivery: !state.byFastDelivery };
-    case "SORT_BY_RATING":
+    case "FILTER_BY_RATING":
       return { ...state, byRating: action.payload };
-    case "SORT_BY_SEATCH":
+    case "FILTER_BY_SEATCH":
       return { ...state, searchQuery: action.payload };
     case "CLEAR_FILTERS":
       return {
