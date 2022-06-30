@@ -45,9 +45,9 @@ function SingleProduct({ prod }) {
                 })
               }
               variant="primary"
-              disabled={prod.inStock}
+              disabled={!prod.inStock}
             >
-              {prod.inStock ? "Out of stock" : "Add to cart"}
+              {prod.inStock ? "Add to cart" : "Out of stock"}
             </Button>
           )}
         </Card.Body>

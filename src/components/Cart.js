@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Form,
-  ListGroup,
-  Col,
-  Button,
-  Image,
-  Row,
-} from "react-bootstrap";
+import { Form, ListGroup, Col, Button, Image, Row } from "react-bootstrap";
 import { AiFillDelete } from "react-icons/ai";
 import Rating from "./Rating";
 import { CartState } from "../context/Context";
@@ -17,13 +10,22 @@ function Cart() {
     dispatch,
   } = CartState();
 
+  console.log(cart);
+
   const [total, setTotal] = useState();
+  const [items, setItems] = useState();
 
   useEffect(() => {
     setTotal(
-      cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
+      cart.reduce(
+        (acc, curr) => acc + parseInt(curr.price) * parseInt(curr.qty),
+        0
+      )
     );
+    setItems(cart.reduce((acc, curr) => acc + parseInt(curr.qty), 0));
   }, [cart]);
+
+
 
   return (
     <div className="home">
@@ -43,8 +45,9 @@ function Cart() {
                   <Rating rating={prod.ratings} />
                 </Col>
                 <Col md={2}>
-                  <Form.Control
-                    as="select"
+                  {console.log(prod)}
+                  <Form.Select
+                    aria-label="Select quantity of product"
                     value={prod.qty}
                     onChange={(e) =>
                       dispatch({
@@ -59,7 +62,7 @@ function Cart() {
                     {[...Array(prod.inStock).keys()].map((x) => (
                       <option key={x + 1}>{x + 1}</option>
                     ))}
-                  </Form.Control>
+                  </Form.Select>
                 </Col>
                 <Col md={2}>
                   <Button
@@ -81,7 +84,7 @@ function Cart() {
         </ListGroup>
       </div>
       <div className="filters summary">
-        <span className="title">Subtotal ({cart.length}) items</span>
+        <span className="title">Subtotal ({items}) items</span>
         <span style={{ fontWeight: 700, fontSize: 20 }}>Total: {total} $</span>
         <Button type="button" disabled={cart.length === 0}>
           Proceed to Checkout
