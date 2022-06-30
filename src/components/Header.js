@@ -1,10 +1,27 @@
 import React from "react";
-import { Navbar, Container, Nav, Form, Dropdown, Badge } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Form,
+  Dropdown,
+  Badge,
+  Button,
+} from "react-bootstrap";
 import { FaShoppingCart } from "react-icons/fa";
+import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { CartState } from "../context/Context";
 import "./style.css";
 
 function Header() {
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
+
+  console.log(cart);
+
   return (
     <Navbar bg="dark" variant="dark" style={{ height: 80 }}>
       <Container className="d-flex ">
@@ -24,13 +41,44 @@ function Header() {
           <Dropdown className="m-3 " align="end">
             <Dropdown.Toggle variant="success">
               <FaShoppingCart color="white" fontSize="25px" />
-              <Badge className="bg-transparent">13</Badge>
+              <Badge className="bg-transparent">{cart.length}</Badge>
             </Dropdown.Toggle>
 
             <Dropdown.Menu style={{ minWidth: 370 }} className="mt-2">
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              {cart.length > 0 ? (
+                <>
+                  {cart.map((prod) => (
+                    <span className="cartitem" key={prod.id}>
+                      <img
+                        src={prod.image}
+                        className="cartItemImg"
+                        alt={prod.name}
+                      />
+                      <div className="cartItemDetail">
+                        <span>{prod.name}</span>
+                        <span>{prod.price.split(".")[0]} $</span>
+                      </div>
+                      <AiFillDelete
+                        fontSize="20px"
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          dispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: prod,
+                          })
+                        }
+                      />
+                    </span>
+                  ))}
+                  <Link to="/cart">
+                    <Button style={{ width: "95%", margin: "0 10px" }}>
+                      Go To Cart
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Dropdown.Item disabled>Cart is Empty!</Dropdown.Item>
+              )}
             </Dropdown.Menu>
           </Dropdown>
         </Nav>
